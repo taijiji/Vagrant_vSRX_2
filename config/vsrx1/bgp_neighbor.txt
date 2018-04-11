@@ -1,0 +1,9 @@
+set interfaces lo0 unit 0 family inet address 10.0.0.1
+set routing-options autonomous-system 65001
+set routing-options router-id 10.0.0.1
+set protocols bgp group ge-0/0/2 type external
+set protocols bgp group ge-0/0/2 family inet unicast
+set protocols bgp group ge-0/0/2 neighbor 192.168.35.2 description AS65002_peer
+set protocols bgp group ge-0/0/2 neighbor 192.168.35.2 peer-as 65002
+set protocols bgp group ge-0/0/2 neighbor 192.168.35.2 export as65002-out
+set protocols bgp group ge-0/0/2 neighbor 192.168.35.2 import all-accept

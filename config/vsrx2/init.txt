@@ -4,6 +4,8 @@ set system login user user1 authentication plain-text-password
 
 set security zones security-zone trust interfaces ge-0/0/1
 set security zones security-zone trust interfaces ge-0/0/1.0 host-inbound-traffic system-services all
+set security zones security-zone trust interfaces ge-0/0/2
+set security zones security-zone trust interfaces ge-0/0/2.0 host-inbound-traffic system-services all
 set system time-zone Asia/Tokyo
 
 set system services netconf ssh
@@ -11,3 +13,5 @@ set system services netconf ssh
 delete security policies
 set security forwarding-options family mpls mode packet-based
 set security forwarding-options family inet6 mode packet-based
+
+run request system reboot

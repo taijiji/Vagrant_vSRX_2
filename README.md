@@ -35,9 +35,12 @@ Model: firefly-perimeter
 JUNOS Software Release [12.1X47-D15.4]
 ```
 
-# add configuration for general use
+# configuration
+## Change packet-based-forward mode
 
-## vSRX
+Defalt is Flow-based forward mode.  
+If you want to use Routing protocol, 
+you should configure to chnage to packet-based-forward mode.
 
 ```
 edit
@@ -55,6 +58,24 @@ set system services netconf ssh
 delete security policies
 set security forwarding-options family mpls mode packet-based
 set security forwarding-options family inet6 mode packet-based
+```
+
+Reboot for changing packet-based-forward
+
+```
+run request system reboot
+```
+
+## Allow to access via ssh
+
+```
+set system services ssh protocol-version v2
+```
+
+## add address
+
+```
+set interfaces ge-0/0/2 unit 0 family inet address 192.168.33.3/24
 ```
 
 # Reference

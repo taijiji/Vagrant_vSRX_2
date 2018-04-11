@@ -1,0 +1,5 @@
+set policy-options policy-statement all-accept term 999 then accept
+set policy-options policy-statement all-reject term 999 then reject
+set policy-options policy-statement as65001-out term 10 from route-filter 172.168.2.0/24 exact
+set policy-options policy-statement as65001-out term 10 then accept
+set policy-options policy-statement as65001-out term 999 then reject
