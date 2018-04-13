@@ -1,0 +1,44 @@
+root@vsrx2> show configuration | display set
+set version 12.1X47-D15.4
+set system host-name vsrx2
+set system time-zone Asia/Tokyo
+set system root-authentication encrypted-password "$1$9rXKgAuj$BmDMKF2uAez85ycvdYX45."
+set system root-authentication ssh-rsa "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCkwt4442SZ1/qeaKzM1KuyzOpo8mOTBguwuNFfvAYFIP76oTGonlZy4Rn6LoGYANDBiI+fngIoOrg7u07jz8LUgz1+EKnk+eO+lPsiLXiB3e/9zpBEYS731BoOMHboTavWYAbH9jApISder93k1MHdUqu20NRxJqTybkQ416H9XsKKoE02hasLX20xGnwkgkSjY8H4LvcMZNynjthU8EjZpKx+tKzqHIYMvz8u2X520YDCGF/CRFnzSxfcm2W3wmz5fT3FJvtvklsQSaoiL7SO5vawLMxXuRRYtE0lXCfGKAXjBGOgqE6/KesD+TpELZVMAnh08QoCDW4wDh/816cf vagrant"
+set system login user user1 uid 2001
+set system login user user1 class super-user
+set system login user user1 authentication encrypted-password "$1$QngGU5Y6$z4jfFGNa8jtH8APBW14QI0"
+set system login user vagrant uid 2000
+set system login user vagrant class super-user
+set system login user vagrant authentication ssh-rsa "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp22WDkTkyrtvp9eWW6A8YVr+kz4TjGYe7gHzIw+niNltGEFHzD8+v1I2YJ6oXevct1YeS0o9HZyN1Q9qgCgzUFtdOKLv6IedplqoPkcmF0aYet2PkEDo3MlTBckFXPITAMzF8dJSIFo9D8HfdOV0IAdx4O7PtixWKn5y2hMNG0zQPyUecp4pzC6kivAIhyfHilFR61RGL+GPXQ2MWZWFYbAGjyiYJnAmCP3NOTd0jMZEnDkbUvxhMmBYSdETk1rRgm+R4LOzFUGaHqHDLKLX+FIPKcF96hrucXzcWyLbIbEgE98OHlnVYCzRdK8jlqm8tehUc9c9WhQ== vagrant insecure public key"
+set system services ssh root-login allow
+set system services netconf ssh
+set system services web-management http interface ge-0/0/0.0
+set system syslog user * any emergency
+set system syslog file messages any any
+set system syslog file messages authorization info
+set system syslog file interactive-commands interactive-commands any
+set system license autoupdate url https://ae1.juniper.net/junos/key_retrieval
+set interfaces ge-0/0/0 unit 0 family inet dhcp
+set interfaces ge-0/0/1 unit 0 family inet address 192.168.34.2/24
+set interfaces ge-0/0/2 unit 0 family inet address 192.168.35.2/30
+set interfaces lo0 unit 0 family inet address 10.0.0.2/32
+set routing-options static route 172.16.2.0/24 discard
+set routing-options router-id 10.0.0.2
+set routing-options autonomous-system 65002
+set protocols bgp group ge-0/0/2 type external
+set protocols bgp group ge-0/0/2 family inet unicast
+set protocols bgp group ge-0/0/2 neighbor 192.168.35.1 description AS65001_peer
+set protocols bgp group ge-0/0/2 neighbor 192.168.35.1 import all-accept
+set protocols bgp group ge-0/0/2 neighbor 192.168.35.1 export as65001-out
+set protocols bgp group ge-0/0/2 neighbor 192.168.35.1 peer-as 65001
+set policy-options policy-statement all-accept term 999 then accept
+set policy-options policy-statement all-reject term 999 then reject
+set policy-options policy-statement as65001-out term 10 from route-filter 172.16.2.0/24 exact
+set policy-options policy-statement as65001-out term 10 then accept
+set policy-options policy-statement as65001-out term 999 then reject
+set security forwarding-options family inet6 mode packet-based
+set security forwarding-options family mpls mode packet-based
+set security zones security-zone trust tcp-rst
+set security zones security-zone trust interfaces ge-0/0/1.0 host-inbound-traffic system-services all
+set security zones security-zone trust interfaces ge-0/0/2.0 host-inbound-traffic system-services all
+set security zones security-zone trust interfaces ge-0/0/2.0 host-inbound-traffic protocols all

@@ -6,3 +6,5 @@ set protocols bgp group ge-0/0/2 family inet unicast
 set protocols bgp group ge-0/0/2 peer-as 65001
 set protocols bgp group ge-0/0/2 neighbor 192.168.35.1 description AS65001_peer
 set protocols bgp group ge-0/0/2 neighbor 192.168.35.1 peer-as 65001
+set protocols bgp group ge-0/0/2 neighbor 192.168.35.1 export as65001-out
+set protocols bgp group ge-0/0/2 neighbor 192.168.35.1 import all-accept

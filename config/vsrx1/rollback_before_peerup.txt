@@ -1,0 +1,13 @@
+delete interfaces ge-0/0/2 unit 0 description AS65002_peer
+delete interfaces ge-0/0/2 unit 0 family inet address 192.168.35.1/30
+delete protocols bgp group ge-0/0/2 type external
+delete protocols bgp group ge-0/0/2 family inet unicast
+delete protocols bgp group ge-0/0/2 neighbor 192.168.35.2 description AS65002_peer
+delete protocols bgp group ge-0/0/2 neighbor 192.168.35.2 import all-reject
+delete protocols bgp group ge-0/0/2 neighbor 192.168.35.2 import all-accept
+delete protocols bgp group ge-0/0/2 neighbor 192.168.35.2 export all-reject
+delete protocols bgp group ge-0/0/2 neighbor 192.168.35.2 export as65002-out
+delete protocols bgp group ge-0/0/2 neighbor 192.168.35.2 peer-as 65002
+delete policy-options policy-statement as65002-out term 10 from route-filter 172.16.1.0/24 exact
+delete policy-options policy-statement as65002-out term 10 then accept
+delete policy-options policy-statement as65002-out term 999 then reject
