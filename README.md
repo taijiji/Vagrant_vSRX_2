@@ -1,4 +1,6 @@
-# Vagrant Juniper vSRX
+# Vagrant Juniper vSRX x2
+
+2 device vSRX with eBGP configuration
 
 # Build
 
